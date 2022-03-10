@@ -2,8 +2,12 @@
 
 namespace ConsoleApp1
 {
-    class Program
+    public class Program
     {
+        public static string przygoda()
+        {
+            return "TeSt";
+        }
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
