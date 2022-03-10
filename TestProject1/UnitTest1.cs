@@ -9,6 +9,7 @@ namespace TestProject1
         public void TestMethod1()
         {
             Assert.AreEqual("TeSt", ConsoleApp1.Program.przygoda());
+            Assert.AreNotEqual("Tedsadsat", ConsoleApp1.Program.przygoda());
         }
     }
 }
