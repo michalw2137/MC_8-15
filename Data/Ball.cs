@@ -3,22 +3,22 @@
     public class Ball
     {
         private readonly int _ballID;
-        public int XPos { get; set; }
-        public int YPos { get; set; }
-        public int XDirection { get; set; }
-        public int YDirection { get; set; }
+        public int XPosition { get; set; }
+        public int YPosition { get; set; }
+        public int XStepSize { get; set; }
+        public int YStepSize { get; set; }
         public int Radius { get; set; }
-        public string Color { get; }
+        public string Colour { get; }
 
-        public Ball(int ID, int xPos, int yPos,int radius, int xDir, int yDir)
+        public Ball(int ID, int xPosition, int yPosition, int radius, int xStepSize, int yStepSize)
         {
             _ballID = ID;
-            XPos = xPos;
-            YPos = yPos;
-            XDirection = xDir;
-            YDirection = yDir;
+            XPosition = xPosition;
+            YPosition = yPosition;
+            XStepSize = xStepSize;
+            YStepSize = yStepSize;
             Radius = radius;
-            Color = Data.Color.PickColor();
+            Colour = Data.Colour.PickColour();
         }
 
         public int GetID()

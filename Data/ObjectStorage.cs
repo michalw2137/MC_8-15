@@ -1,12 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Data
+﻿namespace Data
 {
-    internal class ObjectStorage
+    public class ObjectStorage<T>
     {
+        private List<T> _balls = new();
+        public void AddBall(T obj)
+        {
+            _balls.Add(obj);
+        }
+        public List<T> GetAllBalls()
+        {
+            return _balls;
+        }
+        public void RemoveBall(T obj)
+        {
+            _balls.Remove(obj);
+        }
+
+        public void ClearStorage()
+        {
+            _balls.Clear();
+        }
     }
 }
