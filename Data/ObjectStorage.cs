@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    internal class Class2
+    internal class ObjectStorage
     {
     }
 }
