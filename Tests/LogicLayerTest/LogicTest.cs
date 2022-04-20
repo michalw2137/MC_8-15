@@ -101,16 +101,16 @@ namespace Tests.LogicTest
             //XY CORDS
             ballsManager.SummonBalls(2);
             int xCurrentPos = ballsManager.GetBallByID(1).XPosition;
-            int xHeading = ballsManager.GetBallByID(1).XDirection;
+            int xHeading = ballsManager.GetBallByID(1).XStepSize;
 
             int xPredictedPos = 0;
             int xPredictedHeading = 0;
 
             if (ballsManager.GetBallByID(1).XPosition
                 + ballsManager.GetBallByID(1).XStepSize
-                + ballsManager.GetBallsMinRadius() > ballsManager.GetWindowWidth() || ballsManager.GetBallByID(1).XPosition
+                + ballsManager.GetMinRadius() > ballsManager.GetWindowWidth() || ballsManager.GetBallByID(1).XPosition
                 + ballsManager.GetBallByID(1).XStepSize
-                + ballsManager.GetBallsMinRadius() < 2*ballsManager.GetBallByID(1).Radius)
+                + ballsManager.GetMinRadius() < 2*ballsManager.GetBallByID(1).Radius)
             {
                 xPredictedHeading = xHeading * (-1);
             }
@@ -123,17 +123,17 @@ namespace Tests.LogicTest
             Assert.AreEqual(ballsManager.GetBallByID(1).XPosition, xPredictedPos);
 
             int yCurrentPos = ballsManager.GetBallByID(1).YPosition;
-            int yHeading = ballsManager.GetBallByID(1).YDirection;
+            int yHeading = ballsManager.GetBallByID(1).YStepSize;
 
             int yPredictedPos = 0;
             int yPredictedHeading = 0;
 
 
             if (ballsManager.GetBallByID(1).YPosition
-                + ballsManager.GetBallByID(1).YDirection
-                + ballsManager.GetBallsMinRadius() > ballsManager.GetWindowHeight() || ballsManager.GetBallByID(1).YPosition
-                + ballsManager.GetBallByID(1).YDirection
-                + ballsManager.GetBallsMinRadius() < 2 * ballsManager.GetBallByID(1).Radius)
+                + ballsManager.GetBallByID(1).YStepSize
+                + ballsManager.GetMinRadius() > ballsManager.GetWindowHeight() || ballsManager.GetBallByID(1).YPosition
+                + ballsManager.GetBallByID(1).YStepSize
+                + ballsManager.GetMinRadius() < 2 * ballsManager.GetBallByID(1).Radius)
             {
                 yPredictedHeading = yHeading * (-1);
             }

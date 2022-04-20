@@ -6,8 +6,8 @@ namespace Presentation.Model
     public class Window
     {
         private readonly BallsManager _ballsManager;
-        //private int _width;
-        //private int _height;
+        private int _width;
+        private int _height;
 
         public void Tick()
         {
@@ -16,8 +16,8 @@ namespace Presentation.Model
 
         public Window(int width, int height)
         {
-            //_width = width;
-            //_height = height;
+            _width = width;
+            _height = height;
             _ballsManager = new BallsManager(width, height);
         }
 

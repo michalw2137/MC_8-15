@@ -17,7 +17,7 @@ namespace Presentation.ViewModel
         public bool _resumeFlag = false;
         public bool _pauseFlag = false;
 
-        public MainMap _mainMap{ get; }
+        public Window _Window { get; }
 
         public int _width { get; }
         public int _height { get; }
@@ -31,7 +31,7 @@ namespace Presentation.ViewModel
             _clear = new RelayCommand(Clear, ClearProperties);
             _resume = new RelayCommand(Resume, ResumeProperties);
             _pause = new RelayCommand(Pause, PauseProperties);
-            _mainMap = new MainMap(_width, _height);
+            _Window = new Window(_width, _height);
             SummonFlag = true;
             ClearFlag = false;
             ResumeFlag = false;
@@ -92,7 +92,7 @@ namespace Presentation.ViewModel
             }
         }
 
-        public Object[]? GetBalls { get => _mainMap.GetBalls().ToArray(); }
+        public Object[]? GetBalls { get => _Window.GetBalls().ToArray(); }
 
         public void Summon()
         {
@@ -100,12 +100,12 @@ namespace Presentation.ViewModel
             {
                 int numberOfBalls = int.Parse(_numberOfBalls);
 
-                if(numberOfBalls < 1)
+                if (numberOfBalls < 1)
                 {
                     throw new ArgumentException("Number of balls is less than 1");
                 }
 
-                _mainMap.CreateBalls(numberOfBalls);
+                _Window.CreateBalls(numberOfBalls);
                 OnPropertyChanged("GetBalls");
                 SummonFlag = false;
                 ClearFlag = true;
@@ -120,7 +120,7 @@ namespace Presentation.ViewModel
         public void Clear()
         {
             NumberOfBalls = "";
-            _mainMap.ClearMap();
+            _Window.ClearWindow();
             OnPropertyChanged("GetBalls");
             SummonFlag = true;
             ClearFlag = false;
@@ -133,7 +133,7 @@ namespace Presentation.ViewModel
             while (PauseFlag)
             {
                 await Task.Delay(10);
-                _mainMap.Tick();
+                _Window.Tick();
                 OnPropertyChanged("GetBalls");
             }
         }

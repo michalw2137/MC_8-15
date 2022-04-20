@@ -113,8 +113,8 @@ namespace LogicLayer
                 {
                     ball.YStepSize = ball.YStepSize * (-1);
                 }
-                ball.XPosition += ball.XPosition;
-                ball.YPosition += ball.YPosition;
+                ball.XPosition += ball.XStepSize;
+                ball.YPosition += ball.YStepSize;
             }
         }
 

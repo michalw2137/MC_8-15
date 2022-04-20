@@ -34,7 +34,7 @@ namespace Tests.DataTest
 
             Assert.AreEqual(objectStorage.GetAllBalls().Count, 2);
 
-            objectStorage.RemoveBall(ball);
+            objectStorage.RemoveBall(ball1);
 
             Assert.AreEqual(objectStorage.GetAllBalls().Count, 1);
 
