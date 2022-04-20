@@ -4,23 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:v="clr-namespace:Presentation.ViewModel;assembly=ViewModel" Width="1280" Height="800"
-
-        xmlns:local="clr-namespace:View"
         mc:Ignorable="d">
     <Window.DataContext>
         <v:ViewModelClass/>
     </Window.DataContext>
-    <Grid>
-        <ItemsControl ItemsSource="{Binding GetBalls}" Margin="0,0,280,0" Width="{Binding _width}" Height="{Binding _height}">
+    <Grid Background="#121212">
+        <Rectangle HorizontalAlignment="Left" Height="100" Margin="20,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="1240" Fill="#018786">
+        </Rectangle>
+        <Button Content="Spawn Balls" Command="{Binding _summon}" HorizontalAlignment="Left" Background="#6200EE"  Height="75" Margin="287,10,0,0" VerticalAlignment="Top" Width="120" FontFamily="Trebuchet MS Bold" FontSize="14"/>
+        <Button Content="Clear Window" Command="{Binding _clear}" HorizontalAlignment="Left" Height="75" Background="#CF6679" Margin="1120,10,0,0" VerticalAlignment="Top" Width="120" FontFamily="Trebuchet MS Bold " FontSize="14"/>
+        <Button Content="Start Simulation" Command="{Binding _resume}" HorizontalAlignment="Left" Height="75" Background="#3700B3" Margin="603,10,0,0" VerticalAlignment="Top" Width="120" FontFamily="Trebuchet MS" FontSize="14"/>
+        <Button Content="Pause Simulation" Command="{Binding _pause}" HorizontalAlignment="Left" Height="75" Background="#3700B3" Margin="755,10,0,0" VerticalAlignment="Top" Width="120" FontFamily="Trebuchet MS" FontSize="14"/>
+        <TextBox IsEnabled="{Binding Button}" Text="{Binding BallsAmount}" HorizontalAlignment="Left" Margin="40,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Height="35" FontSize="30"/>
+        <Label Content="Enter balls amount:" HorizontalAlignment="Left" Height="32" Margin="40,10,0,0" VerticalAlignment="Top" Width="230" FontSize="25" FontFamily="Bahnschrift SemiBold"/>
+        
+        <ItemsControl ItemsSource="{Binding GetBalls}" Margin="0,100,0,0" Width="{Binding _width}" Height="{Binding _height}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas>
-                        <Canvas.Background>
-                            <RadialGradientBrush>
-                                <GradientStop Color="#E6A4B4" Offset="1"/>
-                                <GradientStop Color="#F5EEE6" Offset="0"/>
-                            </RadialGradientBrush>
-                        </Canvas.Background>
+                    <Canvas Background="#D8E9A8">
                     </Canvas>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
@@ -41,20 +42,6 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <Rectangle HorizontalAlignment="Left" Height="706" Margin="1000,0,0,0" Stroke="Black" VerticalAlignment="Center" Width="280">
-            <Rectangle.Fill>
-                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                    <GradientStop Color="#F3D7CA" Offset="0.0" />
-                    <GradientStop Color="#F3D7CA" Offset="1.0" />
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
-        <TextBox IsEnabled="{Binding Button}" Text="{Binding NumberOfBalls}" HorizontalAlignment="Left" Margin="1024,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="232" Height="35" FontSize="20"/>
-        <Label Content="Enter number of balls:" HorizontalAlignment="Left" Height="32" Margin="1024,19,0,0" VerticalAlignment="Top" Width="232" FontSize="22" FontFamily="Bahnschrift SemiBold"/>
-        <Button Content="Summon Balls" Command="{Binding _summon}" HorizontalAlignment="Left" Background="#F5EEE6"  Height="40" Margin="1024,115,0,0" VerticalAlignment="Top" Width="232" FontFamily="Bahnschrift SemiBold"/>
-        <Button Content="Clear Window" Command="{Binding _clear}" HorizontalAlignment="Left" Height="40" Background="#C86B85" Margin="1024,257,0,0" VerticalAlignment="Top" Width="232" FontFamily="Bahnschrift SemiBold"/>
-        <Button Content="Start" Command="{Binding _resume}" HorizontalAlignment="Left" Height="55" Background="#F5EEE6" Margin="1024,178,0,0" VerticalAlignment="Top" Width="99" FontFamily="Bahnschrift"/>
-        <Button Content="Pause" Command="{Binding _pause}" HorizontalAlignment="Left" Height="55" Background="#F5EEE6" Margin="1157,178,0,0" VerticalAlignment="Top" Width="99" FontFamily="Bahnschrift"/>
-
+        
     </Grid>
 </Window>

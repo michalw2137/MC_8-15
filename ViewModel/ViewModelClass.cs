@@ -6,7 +6,7 @@ namespace Presentation.ViewModel
 {
     public class ViewModelClass : BaseViewModel
     {
-        private string _numberOfBalls;
+        private string _ballsAmount;
         public RelayCommand _summon { get; }
         public RelayCommand _clear { get; }
         public RelayCommand _pause { get; }
@@ -14,7 +14,7 @@ namespace Presentation.ViewModel
 
         public bool _summonFlag = true;
         public bool _clearFlag = false;
-        public bool _startFlag = false;
+        public bool _resumeFlag = false;
         public bool _pauseFlag = false;
 
         public Window _Window { get; }
@@ -24,9 +24,9 @@ namespace Presentation.ViewModel
 
         public ViewModelClass()
         {
-            _width = 700;
-            _height = 500;
-            _numberOfBalls = "";
+            _width = 1200;
+            _height = 635;
+            _ballsAmount = "";
             _summon = new RelayCommand(Summon, SummonProperties);
             _clear = new RelayCommand(Clear, ClearProperties);
             _resume = new RelayCommand(Resume, ResumeProperties);
@@ -34,16 +34,16 @@ namespace Presentation.ViewModel
             _Window = new Window(_width, _height);
             SummonFlag = true;
             ClearFlag = false;
-            StartFlag = false;
+            ResumeFlag = false;
             PauseFlag = false;
         }
 
-        public string NumberOfBalls
+        public string BallsAmount
         {
-            get => _numberOfBalls;
+            get => _ballsAmount;
             set
             {
-                _numberOfBalls = value;
+                _ballsAmount = value;
                 OnPropertyChanged();
             }
         }
@@ -70,13 +70,13 @@ namespace Presentation.ViewModel
             }
         }
 
-        public bool StartFlag
+        public bool ResumeFlag
         {
-            get => _startFlag;
+            get => _resumeFlag;
 
             set
             {
-                _startFlag = value;
+                _resumeFlag = value;
                 _resume.OnCanExecuteChanged();
             }
         }
@@ -98,7 +98,7 @@ namespace Presentation.ViewModel
         {
             try
             {
-                int numberOfBalls = int.Parse(_numberOfBalls);
+                int numberOfBalls = int.Parse(_ballsAmount);
 
                 if (numberOfBalls < 1)
                 {
@@ -109,22 +109,22 @@ namespace Presentation.ViewModel
                 OnPropertyChanged("GetBalls");
                 SummonFlag = false;
                 ClearFlag = true;
-                StartFlag = true;
+                ResumeFlag = true;
             }
             catch (Exception)
             {
-                NumberOfBalls = "";
+                BallsAmount = "";
             }
         }
 
         public void Clear()
         {
-            NumberOfBalls = "";
+            BallsAmount = "";
             _Window.ClearWindow();
             OnPropertyChanged("GetBalls");
             SummonFlag = true;
             ClearFlag = false;
-            StartFlag = false;
+            ResumeFlag = false;
             PauseFlag = false;
         }
 
@@ -141,13 +141,13 @@ namespace Presentation.ViewModel
         public void Resume()
         {
             PauseFlag = true;
-            StartFlag = false;
+            ResumeFlag = false;
             Tick();
         }
 
         public void Pause()
         {
-            StartFlag = true;
+            ResumeFlag = true;
             PauseFlag = false;
         }
 
@@ -163,7 +163,7 @@ namespace Presentation.ViewModel
 
         private bool ResumeProperties()
         {
-            return StartFlag;
+            return ResumeFlag;
         }
 
         private bool PauseProperties()

@@ -18,7 +18,7 @@
             XStepSize = xStepSize;
             YStepSize = yStepSize;
             Radius = radius;
-            Colour = "#e60000";
+            Colour = "#1E5128";
         }
 
         public int GetID()
