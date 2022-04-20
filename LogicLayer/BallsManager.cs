@@ -17,8 +17,8 @@ namespace LogicLayer
         {
             _windowHeight = windowHeight;
             _windowWidth = windowWidth;
-            _minRadius = Math.Min(windowHeight, windowWidth) / 60;
-            _maxRadius = Math.Max(windowWidth, windowHeight) / 30;
+            _minRadius = Math.Min(windowHeight, windowWidth) / 60; // imo nie bawic sie w min i max rad
+            _maxRadius = Math.Max(windowWidth, windowHeight) / 30; // wszystkie takie same i elo
 
         }
 
@@ -42,7 +42,7 @@ namespace LogicLayer
             return _maxRadius;
         }
 
-        public void CreateBall(int ID, int x, int y, int xStep, int yStep)
+        public void CreateBall(int ID, int x, int y, int xStep, int yStep) // to powinno byc prywatne i nietestowane
         {
             if (CheckForExistingID(ID)
                || (x < _minRadius || x > _windowWidth - _minRadius
