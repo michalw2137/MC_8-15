@@ -13,11 +13,9 @@ namespace Tests.LogicTest
             BallsManager ballsManager = new BallsManager(150, 100);
             Assert.AreEqual(ballsManager.GetMapWidth(),150);
             Assert.AreEqual(ballsManager.GetMapHeight(), 100);
+            Assert.AreEqual(ballsManager.GetMapWidth(), 150);
+            Assert.AreEqual(ballsManager.GetMapWidth(), 150);
 
-            Assert.IsTrue(ballsManager.GetMapWidth() >= 0);
-            Assert.IsTrue(ballsManager.GetMapHeight() >= 0);
-            Assert.IsTrue(ballsManager.GetBallsMaxRadius() >= 0);
-            Assert.IsTrue(ballsManager.GetBallsMinRadius() >= 0);
         }
 
         [TestMethod]

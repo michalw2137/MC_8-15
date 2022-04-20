@@ -10,19 +10,13 @@ namespace Tests.DataTest
         public void BallConstructorTest()
         {
             Ball ball = new Ball(0,0, 1,0, 2, 3);
-            Assert.AreEqual(0, ball.XPos);
-            Assert.AreEqual(1, ball.YPos);
-            Assert.AreEqual(2, ball.XDirection);
-            Assert.AreEqual(3, ball.YDirection);
-            Assert.AreEqual(0, ball.GetID());
+            Assert.AreEqual(0, ball.XPosition);
+            Assert.AreEqual(1, ball.YPosition);
+            Assert.AreEqual(2, ball.XStepSize);
+            Assert.AreEqual(3, ball.YStepSize);
             Assert.AreEqual(0, ball.Radius);
+            Assert.AreEqual(0, ball.GetID());
 
-            Assert.IsTrue(ball.XPos >= 0);
-            Assert.IsTrue(ball.YPos >= 0);
-            Assert.IsTrue(ball.XDirection >= 0);
-            Assert.IsTrue(ball.YDirection >= 0);
-            Assert.IsTrue(ball.GetID() >= 0);
-            Assert.IsTrue(ball.Radius >= 0);
         }
 
         [TestMethod]
@@ -30,10 +24,11 @@ namespace Tests.DataTest
         {
             ObjectStorage<Ball> objectStorage = new();
 
-            Ball ball = new Ball(1,0, 1,0, 2, 3);
-            objectStorage.AddBall(ball);
+            Ball ball1 = new Ball(1,0, 1,0, 2, 3);
+            objectStorage.AddBall(ball1);
 
             Assert.AreEqual(objectStorage.GetAllBalls().Count, 1);
+
             Ball ball2 = new Ball(2,0, 1,0, 2, 3);
             objectStorage.AddBall(ball2);
 
@@ -49,11 +44,11 @@ namespace Tests.DataTest
         }
 
         [TestMethod]
-        public void ColorTest()
+        public void ColourTest()
         {
             Ball ball = new Ball(1, 0, 1, 0, 2, 3);
-            Assert.IsTrue(ball.color != "");
-            Assert.IsTrue(ball.color is not null);
+            Assert.IsTrue(ball.Colour != "");
+            Assert.IsTrue(ball.Colour is not null);
         }
     }
 }
