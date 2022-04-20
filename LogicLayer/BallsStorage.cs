@@ -1,6 +1,6 @@
-﻿namespace Data
+﻿namespace Logic
 {
-    public class ObjectStorage<T>
+    public class BallsStorage<T>
     {
         private List<T> _balls = new();
         public void AddBall(T obj)

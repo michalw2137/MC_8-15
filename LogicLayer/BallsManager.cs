@@ -1,16 +1,16 @@
 ﻿using System.Collections;
-using Data;
+using Logic;
 using LogicLayer.Exceptions;
 using InvalidDataException = LogicLayer.Exceptions.InvalidDataException;
 
-namespace LogicLayer
+namespace Logic
 {
-    public class BallsManager
+    public class BallsManager : AbstractBallsAPI
     {
         private readonly int _windowWidth;
         private readonly int _windowHeight;
         private readonly int _Radius;
-        private readonly ObjectStorage<Ball> _ballStorage = new();
+        private readonly BallsStorage<Ball> _ballStorage = new();
         private int _ID = 0;
 
         public BallsManager(int windowWidth, int windowHeight)
@@ -66,7 +66,7 @@ namespace LogicLayer
             }
         }
 
-        public void DoTick()
+        public void TickBalls()
         {
             foreach (Ball ball in GetAllBalls())
             {

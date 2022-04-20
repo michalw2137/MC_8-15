@@ -1,5 +1,4 @@
-﻿using Data;
-using LogicLayer;
+﻿using Logic;
 using System.Collections.Generic;
 
 namespace Presentation.Model
@@ -12,7 +11,7 @@ namespace Presentation.Model
 
         public void Tick()
         {
-           _ballsManager.DoTick();
+           _ballsManager.TickBalls();
         }
 
         public Window(int width, int height)
