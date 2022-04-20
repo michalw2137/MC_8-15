@@ -6,8 +6,8 @@ namespace Presentation.Model
     public class Window
     {
         private readonly BallsManager _ballsManager;
-        private int _width;
-        private int _height;
+        private readonly int _width;
+        private readonly int _height;
 
         public void Tick()
         {
@@ -33,7 +33,7 @@ namespace Presentation.Model
 
         public void ClearWindow()
         {
-            _ballsManager.ClearMap();
+            _ballsManager.ClearWindow();
         }
     }
 }

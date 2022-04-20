@@ -11,11 +11,6 @@
         {
             return _balls;
         }
-        public void RemoveBall(T obj)
-        {
-            _balls.Remove(obj);
-        }
-
         public void ClearStorage()
         {
             _balls.Clear();

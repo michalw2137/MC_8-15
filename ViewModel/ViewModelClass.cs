@@ -14,7 +14,7 @@ namespace Presentation.ViewModel
 
         public bool _summonFlag = true;
         public bool _clearFlag = false;
-        public bool _resumeFlag = false;
+        public bool _startFlag = false;
         public bool _pauseFlag = false;
 
         public Window _Window { get; }
@@ -24,8 +24,8 @@ namespace Presentation.ViewModel
 
         public ViewModelClass()
         {
-            _width = 1000;
-            _height = 706;
+            _width = 700;
+            _height = 500;
             _numberOfBalls = "";
             _summon = new RelayCommand(Summon, SummonProperties);
             _clear = new RelayCommand(Clear, ClearProperties);
@@ -34,7 +34,7 @@ namespace Presentation.ViewModel
             _Window = new Window(_width, _height);
             SummonFlag = true;
             ClearFlag = false;
-            ResumeFlag = false;
+            StartFlag = false;
             PauseFlag = false;
         }
 
@@ -70,13 +70,13 @@ namespace Presentation.ViewModel
             }
         }
 
-        public bool ResumeFlag
+        public bool StartFlag
         {
-            get => _resumeFlag;
+            get => _startFlag;
 
             set
             {
-                _resumeFlag = value;
+                _startFlag = value;
                 _resume.OnCanExecuteChanged();
             }
         }
@@ -109,7 +109,7 @@ namespace Presentation.ViewModel
                 OnPropertyChanged("GetBalls");
                 SummonFlag = false;
                 ClearFlag = true;
-                ResumeFlag = true;
+                StartFlag = true;
             }
             catch (Exception)
             {
@@ -124,7 +124,7 @@ namespace Presentation.ViewModel
             OnPropertyChanged("GetBalls");
             SummonFlag = true;
             ClearFlag = false;
-            ResumeFlag = false;
+            StartFlag = false;
             PauseFlag = false;
         }
 
@@ -141,13 +141,13 @@ namespace Presentation.ViewModel
         public void Resume()
         {
             PauseFlag = true;
-            ResumeFlag = false;
+            StartFlag = false;
             Tick();
         }
 
         public void Pause()
         {
-            ResumeFlag = true;
+            StartFlag = true;
             PauseFlag = false;
         }
 
@@ -163,7 +163,7 @@ namespace Presentation.ViewModel
 
         private bool ResumeProperties()
         {
-            return ResumeFlag;
+            return StartFlag;
         }
 
         private bool PauseProperties()

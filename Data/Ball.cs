@@ -18,7 +18,7 @@
             XStepSize = xStepSize;
             YStepSize = yStepSize;
             Radius = radius;
-            Colour = Data.Colour.PickColour();
+            Colour = "#e60000";
         }
 
         public int GetID()
