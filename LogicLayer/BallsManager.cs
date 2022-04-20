@@ -22,22 +22,22 @@ namespace LogicLayer
 
         }
 
-        public int GetMapWidth()
+        public int GetWindowWidth()
         {
             return _windowWidth;
         }
 
-        public int GetMapHeight()
+        public int GetWindowHeight()
         {
             return _windowHeight;
         }
 
-        public int GetBallsMinRadius()
+        public int GetMinRadius()
         {
             return _minRadius;
         }
 
-        public int GetBallsMaxRadius()
+        public int GetMaxRadius()
         {
             return _maxRadius;
         }
