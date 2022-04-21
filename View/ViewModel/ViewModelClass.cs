@@ -3,6 +3,7 @@ using Presentation.Model;
 using Data;
 using System;
 using System.Threading.Tasks;
+using static Logic.AbstractBallsAPI;
 
 namespace Presentation.ViewModel
 {
@@ -94,7 +95,7 @@ namespace Presentation.ViewModel
             }
         }
 
-        public Object[]? GetBalls { get => _Window.GetBalls().ToArray(); }
+        public BallAPI[]? GetBalls { get => _Window.GetBalls().ToArray(); }
 
         public void Summon()
         {

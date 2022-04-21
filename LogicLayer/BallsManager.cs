@@ -16,9 +16,7 @@ namespace Logic
             _windowHeight = windowHeight;
             _windowWidth = windowWidth;
             _Radius = Math.Min(windowHeight, windowWidth) / 30;
-
         }
-
 
         private  void CreateBall() 
         {
@@ -47,7 +45,6 @@ namespace Logic
             }
         }
 
-        
         override public void TickBalls()
         {
             foreach (Ball ball in _ballStorage)
@@ -56,13 +53,11 @@ namespace Logic
             }
         }
 
-        
         override public List<BallAPI> GetAllBalls()
         {
             return _ballStorage;
         }
         
-
         override public void ClearWindow()
         {
             _ballStorage.Clear();

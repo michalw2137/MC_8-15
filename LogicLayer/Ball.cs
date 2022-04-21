@@ -5,13 +5,13 @@
         public int XPosition { get; set; }
         public int YPosition { get; set; }
 
-        public int XVelocity { get; set; }
-        public int YVelocity { get; set; }
+        private int XVelocity { get; set; }
+        private int YVelocity { get; set; }
 
         public int Radius { get; set; }
-        public string Colour { get; }
+        //public string Colour { get; }
 
-        public Ball(int xPosition, int yPosition, int radius, int xVelocity, int yVelocity)
+        internal Ball(int xPosition, int yPosition, int radius, int xVelocity, int yVelocity)
         {
             XPosition = xPosition;
             YPosition = yPosition;
@@ -20,10 +20,10 @@
             YVelocity = yVelocity;
 
             Radius = radius;
-            Colour = "#fc0352";
+            //Colour = "#fc0352";
         }
 
-        public void MoveBallWithinBox(int width, int height)
+        internal void MoveBallWithinBox(int width, int height)
         {
             int x = 0, y = 0;
             bool moved = true;
