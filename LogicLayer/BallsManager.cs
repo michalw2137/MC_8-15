@@ -10,7 +10,7 @@ namespace Logic
         private readonly int _windowWidth;
         private readonly int _windowHeight;
         private readonly int _Radius;
-        private readonly BallsStorage<Ball> _ballStorage = new();
+        private readonly List<Ball> _ballStorage = new();
         private int _ID = 0;
 
         public BallsManager(int windowWidth, int windowHeight)
@@ -53,7 +53,7 @@ namespace Logic
 
            
             Ball newBall = new Ball(_ID, xPos, yPos, _Radius, xStep, yStep);
-            _ballStorage.AddBall(newBall);
+            _ballStorage.Add(newBall);
             _ID++;
             
         }
@@ -85,12 +85,12 @@ namespace Logic
 
         public List<Ball> GetAllBalls()
         {
-            return _ballStorage.GetAllBalls();
+            return _ballStorage;
         }
 
         public void ClearWindow()
         {
-            _ballStorage.ClearStorage();
+            _ballStorage.Clear();
             _ID = 0;
         }
     }
