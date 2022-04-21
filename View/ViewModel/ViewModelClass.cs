@@ -135,7 +135,7 @@ namespace Presentation.ViewModel
             while (PauseFlag)
             {
                 await Task.Delay(10);
-                _Window.Tick();
+                _Window.TickBalls();
                 OnPropertyChanged("GetBalls");
             }
         }

@@ -9,7 +9,7 @@ namespace Presentation.Model
         private readonly int _width;
         private readonly int _height;
 
-        public void Tick()
+        public void TickBalls()
         {
            _ballsManager.TickBalls();
         }
