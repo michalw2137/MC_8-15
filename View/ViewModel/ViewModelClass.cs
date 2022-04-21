@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Presentation.ViewModel
 {
-    public class ViewModelClass : BaseViewModel
+    internal class ViewModelClass : BaseViewModel
     {
         private string _ballsAmount;
         public RelayCommand _summon { get; }

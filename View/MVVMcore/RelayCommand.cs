@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace Presentation.ViewModel.MVVMcore
 {
-    public class RelayCommand : ICommand
+    internal class RelayCommand : ICommand
     {
         public event EventHandler? CanExecuteChanged;
         private readonly Action _canBeExecuteAction;

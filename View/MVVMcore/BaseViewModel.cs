@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Presentation.ViewModel.MVVMcore
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    internal class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
