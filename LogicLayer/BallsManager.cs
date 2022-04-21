@@ -70,16 +70,7 @@ namespace Logic
         {
             foreach (Ball ball in GetAllBalls())
             {
-                if (ball.XPosition + ball.XStepSize + ball.Radius <= ball.Radius * 2 || ball.XPosition + ball.XStepSize + ball.Radius >= _windowWidth)
-                {
-                    ball.XStepSize = ball.XStepSize * (-1);
-                }
-                if (ball.YPosition + ball.YStepSize + ball.Radius <= ball.Radius * 2 || ball.YPosition + ball.YStepSize + ball.Radius >= _windowHeight)
-                {
-                    ball.YStepSize = ball.YStepSize * (-1);
-                }
-                ball.XPosition += ball.XStepSize;
-                ball.YPosition += ball.YStepSize;
+                ball.MoveBallWithinBox(_windowWidth, _windowHeight);
             }
         }
 

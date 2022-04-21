@@ -9,8 +9,11 @@ namespace Logic
     internal interface AbstractBallsAPI
     {
         public abstract void SummonBalls(int amount);
+
         public void TickBalls();
+
         public List<Ball> GetAllBalls();
+
         public void ClearWindow();
     }
 }
