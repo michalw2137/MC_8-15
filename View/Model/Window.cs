@@ -28,7 +28,7 @@ namespace Presentation.Model
 
         internal void ClearWindow()
         {
-            _ballsManager.ClearWindow();
+            _ballsManager.ClearBalls();
         }
 
         internal void TickBalls()

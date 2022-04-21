@@ -18,7 +18,7 @@ namespace Logic
             _Radius = Math.Min(windowHeight, windowWidth) / 30;
         }
 
-        private  void CreateBall() 
+        private void CreateBall() 
         {
             Random rnd = new Random();
             int xVelocity, yVelocity;
@@ -58,7 +58,7 @@ namespace Logic
             return _ballStorage;
         }
         
-        override public void ClearWindow()
+        override public void ClearBalls()
         {
             _ballStorage.Clear();
         }

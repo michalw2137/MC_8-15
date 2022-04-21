@@ -2,13 +2,9 @@
 {
     internal class Ball : AbstractBallsAPI.BallAPI
     {
-        public int XPosition { get; set; }
-        public int YPosition { get; set; }
-
         private int XVelocity { get; set; }
         private int YVelocity { get; set; }
 
-        public int Radius { get; set; }
         //public string Colour { get; }
 
         internal Ball(int xPosition, int yPosition, int radius, int xVelocity, int yVelocity)

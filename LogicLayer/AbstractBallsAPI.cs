@@ -8,7 +8,12 @@ namespace Logic
 {
     public abstract class AbstractBallsAPI
     {
-        public abstract class BallAPI { };
+        public abstract class BallAPI 
+        {
+            public int XPosition { get; set; }
+            public int YPosition { get; set; }
+            public int Radius { get; set; }
+        };
 
         public static AbstractBallsAPI Create(int windowWidth, int windowHeight)
         {
@@ -21,6 +26,6 @@ namespace Logic
 
         public abstract List<BallAPI> GetAllBalls();
 
-        public abstract void ClearWindow();
+        public abstract void ClearBalls();
     }
 }
