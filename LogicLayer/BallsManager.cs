@@ -40,10 +40,11 @@ namespace Logic
         {
             Random rnd = new Random();
             int xVelocity, yVelocity;
+            int speed = 6;
             do
             {
-                xVelocity = rnd.Next(-3, 3);
-                yVelocity = rnd.Next(-3, 3);
+                xVelocity = rnd.Next(-speed, speed);
+                yVelocity = rnd.Next(-speed, speed);
             } 
             while (xVelocity == 0 || yVelocity == 0);
             

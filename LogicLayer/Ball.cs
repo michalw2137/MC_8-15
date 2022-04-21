@@ -2,7 +2,6 @@
 {
     public class Ball
     {
-        private readonly int _ballID;
         public int XPosition { get; set; }
         public int YPosition { get; set; }
 
