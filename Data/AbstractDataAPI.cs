@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    internal interface AbstractDataAPI
+    public abstract class AbstractDataAPI
     {
     }
 }
