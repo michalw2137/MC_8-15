@@ -12,20 +12,16 @@
         public int Radius { get; set; }
         public string Colour { get; }
 
-        public Ball(int ID, int xPosition, int yPosition, int radius, int xStepSize, int yStepSize)
+        public Ball(int xPosition, int yPosition, int radius, int xVelocity, int yVelocity)
         {
-            _ballID = ID;
             XPosition = xPosition;
             YPosition = yPosition;
-            XVelocity = xStepSize;
-            YVelocity = yStepSize;
-            Radius = radius;
-            Colour = "#1E5128";
-        }
 
-        public int GetID()
-        {
-            return _ballID;
+            XVelocity = xVelocity;
+            YVelocity = yVelocity;
+
+            Radius = radius;
+            Colour = "#fc0352";
         }
 
         public void MoveBallWithinBox(int width, int height)
@@ -49,26 +45,26 @@
                     moved = true;
 
                 }
-                bounceIfOnEdge(width, height);
+                BounceIfOnEdge(width, height);
             }
         }
 
-        private void bounceIfOnEdge(int width, int height)
+        private void BounceIfOnEdge(int width, int height)
         {
-            if (XPosition <= Radius)
+            if (XPosition <= Radius)            // hit left edge, go right
             {
                 XVelocity = Math.Abs(XVelocity);
             }
-            if (XPosition >= width - Radius)
+            if (XPosition >= width - Radius)    // hit right edge, go left
             {
                 XVelocity = Math.Abs(XVelocity) * (-1);
             }
 
-            if (YPosition <= Radius)
+            if (YPosition <= Radius)            // hit bottom edge, go up
             {
                 YVelocity = Math.Abs(YVelocity);
             }
-            if (YPosition >= height - Radius)
+            if (YPosition >= height - Radius)   // hit top edge, go down
             {
                 YVelocity = Math.Abs(YVelocity) * (-1);
             }

@@ -4,19 +4,20 @@ using Logic;
 
 namespace Logic
 {
-    public class BallsManager : AbstractBallsAPI
+    public class BallsManager : IAbstractBallsAPI
     {
         private readonly int _windowWidth;
         private readonly int _windowHeight;
+
         private readonly int _Radius;
+
         private readonly List<Ball> _ballStorage = new();
-        private int _ID = 0;
 
         public BallsManager(int windowWidth, int windowHeight)
         {
             _windowHeight = windowHeight;
             _windowWidth = windowWidth;
-            _Radius = Math.Min(windowHeight, windowWidth) / 60;
+            _Radius = Math.Min(windowHeight, windowWidth) / 30;
 
         }
 
@@ -38,23 +39,19 @@ namespace Logic
         public void CreateBall() 
         {
             Random rnd = new Random();
-            int xStep = 0;
-            int yStep = 0;
+            int xVelocity, yVelocity;
             do
             {
-                xStep = rnd.Next(-3, 3);
-                yStep = rnd.Next(-3, 3);
-            } while (xStep == 0 || yStep == 0);
+                xVelocity = rnd.Next(-3, 3);
+                yVelocity = rnd.Next(-3, 3);
+            } 
+            while (xVelocity == 0 || yVelocity == 0);
             
-
             int xPos = rnd.Next(_Radius, _windowWidth - _Radius);
             int yPos = rnd.Next(_Radius, _windowHeight - _Radius);
 
-           
-            Ball newBall = new Ball(_ID, xPos, yPos, _Radius, xStep, yStep);
-            _ballStorage.Add(newBall);
-            _ID++;
-            
+            Ball newBall = new(xPos, yPos, _Radius, xVelocity, yVelocity);
+            _ballStorage.Add(newBall);           
         }
 
         public void SummonBalls(int amount)
@@ -81,7 +78,6 @@ namespace Logic
         public void ClearWindow()
         {
             _ballStorage.Clear();
-            _ID = 0;
         }
     }
 }

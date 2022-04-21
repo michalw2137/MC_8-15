@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logic
 {
-    internal interface AbstractBallsAPI
+    internal interface IAbstractBallsAPI
     {
         public abstract void SummonBalls(int amount);
 
