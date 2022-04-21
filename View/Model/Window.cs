@@ -5,7 +5,7 @@ namespace Presentation.Model
 {
     public class Window
     {
-        private readonly BallsManager _ballsManager;
+        private readonly AbstractBallsAPI _ballsManager;
         private readonly int _width;
         private readonly int _height;
 
@@ -18,13 +18,15 @@ namespace Presentation.Model
         {
             _width = width;
             _height = height;
-            _ballsManager = new BallsManager(width, height);
+            _ballsManager = AbstractBallsAPI.Create(width, height);
         }
 
-        public List<Ball> GetBalls()
+        
+        public List<AbstractBallsAPI.BallAPI> GetBalls()
         {
             return _ballsManager.GetAllBalls();
         }
+        
 
         public void CreateBalls(int amount) 
         {

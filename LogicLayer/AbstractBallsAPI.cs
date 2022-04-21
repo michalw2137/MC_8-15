@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 
 namespace Logic
 {
-    internal interface IAbstractBallsAPI
+    public abstract class AbstractBallsAPI
     {
+        public abstract class BallAPI { };
+
+        public static AbstractBallsAPI Create(int windowWidth, int windowHeight)
+        {
+            return new BallsManager(windowWidth, windowHeight);
+        }
+
         public abstract void SummonBalls(int amount);
 
-        public void TickBalls();
+        public abstract void TickBalls();
 
-        public List<Ball> GetAllBalls();
+        public abstract List<BallAPI> GetAllBalls();
 
-        public void ClearWindow();
+        public abstract void ClearWindow();
     }
 }

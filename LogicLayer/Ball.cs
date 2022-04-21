@@ -1,6 +1,6 @@
 ﻿namespace Logic
 {
-    public class Ball
+    internal class Ball : AbstractBallsAPI.BallAPI
     {
         private readonly int _ballID;
         public int XPosition { get; set; }

@@ -4,14 +4,12 @@ using Logic;
 
 namespace Logic
 {
-    public class BallsManager : IAbstractBallsAPI
+    internal class BallsManager : AbstractBallsAPI
     {
-        private readonly int _windowWidth;
-        private readonly int _windowHeight;
-
-        private readonly int _Radius;
-
-        private readonly List<Ball> _ballStorage = new();
+        internal  readonly int _windowWidth;
+        internal  readonly int _windowHeight;
+        internal  readonly int _Radius;
+        internal  readonly List<BallAPI> _ballStorage = new();
 
         public BallsManager(int windowWidth, int windowHeight)
         {
@@ -21,22 +19,8 @@ namespace Logic
 
         }
 
-        public int GetWindowWidth()
-        {
-            return _windowWidth;
-        }
 
-        public int GetWindowHeight()
-        {
-            return _windowHeight;
-        }
-
-        public int GetRadius()
-        {
-            return _Radius;
-        }
-
-        public void CreateBall() 
+        private  void CreateBall() 
         {
             Random rnd = new Random();
             int xVelocity, yVelocity;
@@ -54,7 +38,7 @@ namespace Logic
             _ballStorage.Add(newBall);           
         }
 
-        public void SummonBalls(int amount)
+        override public void SummonBalls(int amount)
         {
             for (int i = 0; i < amount; i++)
             {
@@ -62,20 +46,23 @@ namespace Logic
             }
         }
 
-        public void TickBalls()
+        
+        override public void TickBalls()
         {
-            foreach (Ball ball in GetAllBalls())
+            foreach (Ball ball in _ballStorage)
             {
                 ball.MoveBallWithinBox(_windowWidth, _windowHeight);
             }
         }
 
-        public List<Ball> GetAllBalls()
+        
+        override public List<BallAPI> GetAllBalls()
         {
             return _ballStorage;
         }
+        
 
-        public void ClearWindow()
+        override public void ClearWindow()
         {
             _ballStorage.Clear();
         }
