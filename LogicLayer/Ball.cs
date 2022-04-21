@@ -5,8 +5,6 @@
         private int XVelocity { get; set; }
         private int YVelocity { get; set; }
 
-        //public string Colour { get; }
-
         internal Ball(int xPosition, int yPosition, int radius, int xVelocity, int yVelocity)
         {
             XPosition = xPosition;
@@ -16,7 +14,6 @@
             YVelocity = yVelocity;
 
             Radius = radius;
-            //Colour = "#fc0352";
         }
 
         internal void MoveBallWithinBox(int width, int height)

@@ -26,7 +26,7 @@ namespace Presentation.Model
             _ballsManager.SummonBalls(amount);
         }
 
-        internal void ClearWindow()
+        internal void ClearBalls()
         {
             _ballsManager.ClearBalls();
         }

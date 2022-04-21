@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using Logic;
-
-
-namespace Logic
+﻿namespace Logic
 {
     internal class BallsManager : AbstractBallsAPI
     {
@@ -16,9 +12,11 @@ namespace Logic
             _windowHeight = windowHeight;
             _windowWidth = windowWidth;
             _Radius = Math.Min(windowHeight, windowWidth) / 30;
+
         }
 
-        private void CreateBall() 
+
+        private  void CreateBall() 
         {
             Random rnd = new Random();
             int xVelocity, yVelocity;
@@ -45,6 +43,7 @@ namespace Logic
             }
         }
 
+        
         override public void TickBalls()
         {
             foreach (Ball ball in _ballStorage)
@@ -53,11 +52,13 @@ namespace Logic
             }
         }
 
+        
         override public List<BallAPI> GetAllBalls()
         {
             return _ballStorage;
         }
         
+
         override public void ClearBalls()
         {
             _ballStorage.Clear();

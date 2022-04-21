@@ -123,7 +123,7 @@ namespace Presentation.ViewModel
         public void Clear()
         {
             BallsAmount = "";
-            _Window.ClearWindow();
+            _Window.ClearBalls();
             OnPropertyChanged("GetBalls");
             SummonFlag = true;
             ClearFlag = false;

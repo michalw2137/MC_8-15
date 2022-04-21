@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Logic
+﻿namespace Logic
 {
     public abstract class AbstractBallsAPI
     {
-        public abstract class BallAPI 
+        public abstract class BallAPI
         {
             public int XPosition { get; set; }
             public int YPosition { get; set; }
