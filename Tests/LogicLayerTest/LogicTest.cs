@@ -52,11 +52,11 @@ namespace Tests.DataTest
         {
             AbstractBallsAPI api = AbstractBallsAPI.Create(100, 100);
 
-            api.SummonBalls(1000);
+            api.SummonBalls(100);
             List<AbstractBallsAPI.BallAPI> balls = api.GetAllBalls();
 
-            int[] startingXs = new int[10];
-            int[] startingYs = new int[10];
+            int[] startingXs = new int[100];
+            int[] startingYs = new int[100];
             for (int i=0; i < startingXs.Length; i++)
             {
                 startingXs[i] = balls[i].XPosition;
@@ -65,8 +65,7 @@ namespace Tests.DataTest
             api.TickBalls();
             for (int i = 0; i < startingXs.Length; i++)
             {
-                Assert.AreNotEqual(startingXs[i], balls[i].XPosition);
-                Assert.AreNotEqual(startingYs[i], balls[i].YPosition);
+                Assert.IsTrue(startingXs[i] != balls[i].XPosition || startingYs[i] != balls[i].YPosition);
             }
         }
 
