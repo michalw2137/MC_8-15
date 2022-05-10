@@ -20,8 +20,8 @@
             Random rnd = new Random();
             dir = rnd.Next(0, 360);
 
-            speed = 5;
-            //speed = rnd.Next(2, 10);
+            //speed = 5;
+            speed = rnd.Next(4, 6);
         }
 
         internal void MoveBallWithinBox(int width, int height)
@@ -62,27 +62,26 @@
             if (XPosition <= Radius)            // hit left edge, go right
             {
                 //XVelocity = Math.Abs(XVelocity);
-                dir = 90;
+                dir = 360 - dir;
             }
             if (XPosition >= width - Radius)    // hit right edge, go left
             {
                 //XVelocity = Math.Abs(XVelocity) * (-1);
-                dir = -90; 
+                dir = 360 - dir; 
             }
 
             if (YPosition <= Radius)            // hit bottom edge, go up
             {
                 //YVelocity = Math.Abs(YVelocity);
-                dir = 0;
+                dir = 180 - dir;
             }
             if (YPosition >= height - Radius)   // hit top edge, go down
             {
                 //YVelocity = Math.Abs(YVelocity) * (-1);
-                //dir -= 2 * (dir - 270);
-                dir = 180;
+                dir = 180 - dir;
 
             }
         }
 
-    }
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 }
