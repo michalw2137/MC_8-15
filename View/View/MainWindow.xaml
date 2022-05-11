@@ -13,7 +13,6 @@
         </Rectangle>
         <Button Content="Spawn Balls" Command="{Binding _summon}" HorizontalAlignment="Left" Background="#6200EE"  Height="75" Margin="287,10,0,0" VerticalAlignment="Top" Width="120" FontFamily="Trebuchet MS Bold" FontSize="14"/>
         <Button Content="Clear Window" Command="{Binding _clear}" HorizontalAlignment="Left" Height="75" Background="#CF6679" Margin="1120,10,0,0" VerticalAlignment="Top" Width="120" FontFamily="Trebuchet MS Bold " FontSize="14"/>
-        <Button Content="Start Simulation" Command="{Binding _resume}" HorizontalAlignment="Left" Height="75" Background="#3700B3" Margin="603,10,0,0" VerticalAlignment="Top" Width="120" FontFamily="Trebuchet MS" FontSize="14"/>
         <TextBox Text="{Binding BallsAmount}" HorizontalAlignment="Left" Margin="40,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Height="35" FontSize="30"/>
         <Label Content="Enter balls amount:" HorizontalAlignment="Left" Height="32" Margin="40,10,0,0" VerticalAlignment="Top" Width="230" FontSize="25" FontFamily="Bahnschrift SemiBold"/>
 

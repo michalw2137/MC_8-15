@@ -4,6 +4,8 @@ namespace Logic
 {
     public abstract class ILogic
     {
+        public object _lock = new object();
+
         public bool isMoving { get; set; }
 
         public List<Thread> threads;
@@ -14,8 +16,6 @@ namespace Logic
         }
 
 
-        public abstract void resolveCollisions();
-
         public abstract void createBalls(int amount);
 
         public abstract List<IBall2> GetAllBalls();
@@ -23,7 +23,6 @@ namespace Logic
         public abstract void ClearBalls();
 
         public abstract void SummonBalls(int amount);
-
 
 
 

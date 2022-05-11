@@ -12,22 +12,26 @@ namespace Data
 
             Radius = 15;
             mass = 10;
-            speed = 5;
-
             Random rnd = new Random();
-            dir = rnd.Next(0, 360);
+            do
+            {
+                vx = rnd.Next(-3, 3);
+                vy = rnd.Next(-3, 3);
+            } while (vx == 0 || vy == 0);
+
+            //dir = rnd.Next(0, 360);
 
         }
 
 
         override public void move()  
         {
-            double angle = Math.PI * (dir) / 180.0;
-            double vx = Math.Sin(angle) * speed;
-            double vy = Math.Cos(angle) * speed;
+            //double angle = Math.PI * (dir) / 180.0;
+            //double vx = Math.Sin(angle) * speed;
+            //double vy = Math.Cos(angle) * speed;
 
-            XPosition += (int)vx;
-            YPosition += (int)vy;
+            XPosition += vx;
+            YPosition += vy;
 
             RaisePropertyChanged();
         }

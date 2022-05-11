@@ -31,7 +31,11 @@ namespace Logic
                     while (isMoving)
                     {
                         ball.move();
-                        BounceIfOnEdge(ball);
+                        lock(_lock)
+                        {
+                            BounceIfOnEdge(ball);
+                            ResolveCollisionsWithBalls(ball);
+                        }
                         //System.Diagnostics.Debug.WriteLine("Ball dir=" + ball.dir.ToString() + ", speed=" + ball.speed.ToString());
                         Thread.Sleep(5);
                     }
@@ -76,40 +80,64 @@ namespace Logic
             }
         }
 
-        
-        override public void resolveCollisions()
-        {
-            foreach (IBall ball in _ballStorage)
-            {
-                BounceIfOnEdge(ball);
-            } 
-                
-        }
-
         private void BounceIfOnEdge(IBall ball)
         {
             if (ball.XPosition <= ball.Radius)            // hit left edge, go right
             {
-                ball.dir = 360 - ball.dir;
+                ball.vx = Math.Abs(ball.vx);
             }
             if (ball.XPosition >= _windowWidth - ball.Radius)    // hit right edge, go left
             {
-                ball.dir = 360 - ball.dir;
+                ball.vx = Math.Abs(ball.vx) * (-1);
             }
 
             if (ball.YPosition <= ball.Radius)            // hit bottom edge, go up
             {
-                ball.dir = 180 - ball.dir;
+                ball.vy = Math.Abs(ball.vy);
             }
             if (ball.YPosition >= _windowHeight - ball.Radius)   // hit top edge, go down
             {
-                ball.dir = 180 - ball.dir;
+                ball.vy = Math.Abs(ball.vy) * (-1);
             }
+        }
+
+        private void ResolveCollisionsWithBalls(IBall ball)
+        {
+            IBall? collided = FindCollidingBall(ball);
+            if (collided != null)
+            {
+                double newX1, newX2, newY1, newY2;
+
+                newX1 = (ball.vx * (ball.mass - collided.mass) / (ball.mass + collided.mass) + (2 * collided.mass * collided.vx) / (ball.mass + collided.mass));
+                newY1 = (ball.vy * (ball.mass - collided.mass) / (ball.mass + collided.mass) + (2 * collided.mass * collided.vy) / (ball.mass + collided.mass));
+
+                newX2 = (collided.vx * (collided.mass - ball.mass) / (ball.mass + collided.mass) + (2 * ball.mass * ball.vx) / (ball.mass + collided.mass));
+                newY2 = (collided.vy * (collided.mass - ball.mass) / (ball.mass + collided.mass) + (2 * ball.mass * ball.vy) / (ball.mass + collided.mass));
+
+                ball.vx = (int)newX1;
+                ball.vy = (int)newY1;
+                collided.vx = (int)newX2;
+                collided.vy = (int)newY2;
+            }
+        }
+
+        private IBall? FindCollidingBall(IBall ball)
+        {
+            foreach (IBall other in _ballStorage)
+            {
+                if (other == ball)
+                    continue;
+                double distance = Math.Sqrt(Math.Pow((ball.XPosition + ball.vx - other.XPosition + other.vx), 2) +
+                                            Math.Pow((ball.YPosition + ball.vy - other.YPosition + other.vy), 2));
+                if (distance <= ball.Radius + other.Radius)
+                    return other;
+            }
+            return null;
         }
 
         override public List<IBall2> GetAllBalls()
         {
-            List<IBall2> list = new List<IBall2>(); 
+            List<IBall2> list = new (); 
             foreach (IBall ball in _ballStorage)
             {
                 list.Add(new Ball2(ball.XPosition, ball.YPosition));
