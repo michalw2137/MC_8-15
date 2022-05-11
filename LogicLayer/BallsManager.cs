@@ -11,32 +11,61 @@ namespace Logic
 
         public BallsManager(int windowWidth, int windowHeight)
         {
+            System.Diagnostics.Debug.WriteLine("konstruktor");
+
             _windowHeight = windowHeight;
             _windowWidth = windowWidth;
 
-            SummonBalls(17);
+            //SummonBalls(4);
+        }
+
+        public void assignThreads()
+        {
             threads = new List<Thread>();
 
             foreach (IBall ball in _ballStorage)
             {
+
                 Thread t = new Thread(() =>
                 {
-                    while (true)
+                    while (isMoving)
                     {
                         ball.move();
                         BounceIfOnEdge(ball);
+                        //System.Diagnostics.Debug.WriteLine("Ball dir=" + ball.dir.ToString() + ", speed=" + ball.speed.ToString());
                         Thread.Sleep(5);
                     }
                 });
-
                 threads.Add(t);
-
             }
-
-
         }
 
-        override public void SummonBalls(int amount)
+        public override void SummonBalls(int amount)
+        {
+
+            createBalls(amount);
+
+            assignThreads();
+
+            if (!isMoving)
+            {
+
+                isMoving = true;
+                foreach (Thread t in threads) 
+                {
+                    t.Start(); 
+                }
+            }
+        }
+
+        public override void ClearBalls()
+        {
+            isMoving = false;
+            threads.Clear();
+            _ballStorage.Clear();
+        }
+
+        override public void createBalls(int amount)
         {
             Random rnd = new Random();
             for (int i = 0; i < amount; i++)
@@ -87,13 +116,6 @@ namespace Logic
             }
             return list;
         }
-        
-
-        override public void ClearBalls()
-        {
-            _ballStorage.Clear();
-        }
-
-
+       
     }
 }

@@ -113,6 +113,7 @@ namespace Presentation.ViewModel
                 SummonFlag = false;
                 ClearFlag = true;
                 ResumeFlag = true;
+                Tick();
             }
             catch (Exception)
             {
@@ -133,10 +134,9 @@ namespace Presentation.ViewModel
 
         public async void Tick()
         {
-            while (PauseFlag)
+            while (true)
             {
                 await Task.Delay(10);
-                //_Window.TickBalls();
                 OnPropertyChanged("GetBalls");
             }
         }
