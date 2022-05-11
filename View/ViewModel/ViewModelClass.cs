@@ -2,7 +2,8 @@
 using Presentation.Model;
 using System;
 using System.Threading.Tasks;
-using static Logic.AbstractBallsAPI;
+using static Logic.ILogic;
+using Logic;
 
 namespace Presentation.ViewModel
 {
@@ -94,7 +95,7 @@ namespace Presentation.ViewModel
             }
         }
 
-        public BallAPI[]? GetBalls { get => _Window.GetBalls().ToArray(); }
+        public ILogic.IBall2[]? GetBalls { get => _Window.GetBalls().ToArray(); }
 
         public void Summon()
         {
@@ -135,7 +136,7 @@ namespace Presentation.ViewModel
             while (PauseFlag)
             {
                 await Task.Delay(10);
-                _Window.TickBalls();
+                //_Window.TickBalls();
                 OnPropertyChanged("GetBalls");
             }
         }

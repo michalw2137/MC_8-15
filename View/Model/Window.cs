@@ -5,7 +5,7 @@ namespace Presentation.Model
 {
     internal class Window
     {
-        private readonly AbstractBallsAPI _ballsManager;
+        private readonly ILogic _ballsManager;
         private readonly int _width;
         private readonly int _height;
 
@@ -13,10 +13,10 @@ namespace Presentation.Model
         {
             _width = width;
             _height = height;
-            _ballsManager = AbstractBallsAPI.Create(width, height);
+            _ballsManager = ILogic.Create(width, height);
         }
 
-        internal List<AbstractBallsAPI.BallAPI> GetBalls()
+        internal List<ILogic.IBall2> GetBalls()
         {
             return _ballsManager.GetAllBalls();
         }
@@ -31,10 +31,7 @@ namespace Presentation.Model
             _ballsManager.ClearBalls();
         }
 
-        internal void TickBalls()
-        {
-            _ballsManager.TickBalls();
-        }
+       
 
     }
 }

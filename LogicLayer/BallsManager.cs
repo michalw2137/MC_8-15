@@ -1,61 +1,91 @@
-﻿namespace Logic
+﻿using Data;
+
+namespace Logic
 {
-    internal class BallsManager : AbstractBallsAPI
+    internal class BallsManager : ILogic
     {
         internal  readonly int _windowWidth;
         internal  readonly int _windowHeight;
-        internal  readonly int _Radius;
-        internal  readonly List<BallAPI> _ballStorage = new();
+        internal  readonly int _Radius = 15;
+        internal  readonly List<IBall> _ballStorage = new();
 
         public BallsManager(int windowWidth, int windowHeight)
         {
             _windowHeight = windowHeight;
             _windowWidth = windowWidth;
-            _Radius = Math.Min(windowHeight, windowWidth) / 30;
 
-        }
+            SummonBalls(17);
+            threads = new List<Thread>();
 
-
-        private  void CreateBall() 
-        {
-            Random rnd = new Random();
-            int xVelocity, yVelocity;
-            int speed = 6;
-            do
+            foreach (IBall ball in _ballStorage)
             {
-                xVelocity = rnd.Next(-speed, speed);
-                yVelocity = rnd.Next(-speed, speed);
-            } 
-            while (xVelocity == 0 || yVelocity == 0);
-            
-            int xPos = rnd.Next(_Radius, _windowWidth - _Radius);
-            int yPos = rnd.Next(_Radius, _windowHeight - _Radius);
+                Thread t = new Thread(() =>
+                {
+                    while (true)
+                    {
+                        ball.move();
+                        BounceIfOnEdge(ball);
+                        Thread.Sleep(5);
+                    }
+                });
 
-            Ball newBall = new(xPos, yPos, _Radius, xVelocity, yVelocity);
-            _ballStorage.Add(newBall);           
+                threads.Add(t);
+
+            }
+
+
         }
 
         override public void SummonBalls(int amount)
         {
+            Random rnd = new Random();
             for (int i = 0; i < amount; i++)
             {
-                CreateBall();
+                int xPos = rnd.Next(_Radius, _windowWidth - _Radius);
+                int yPos = rnd.Next(_Radius, _windowHeight - _Radius);
+                _ballStorage.Add(IBall.getBall(xPos, yPos));
             }
         }
 
         
-        override public void TickBalls()
+        override public void resolveCollisions()
         {
-            foreach (Ball ball in _ballStorage)
+            foreach (IBall ball in _ballStorage)
             {
-                ball.MoveBallWithinBox(_windowWidth, _windowHeight);
+                BounceIfOnEdge(ball);
+            } 
+                
+        }
+
+        private void BounceIfOnEdge(IBall ball)
+        {
+            if (ball.XPosition <= ball.Radius)            // hit left edge, go right
+            {
+                ball.dir = 360 - ball.dir;
+            }
+            if (ball.XPosition >= _windowWidth - ball.Radius)    // hit right edge, go left
+            {
+                ball.dir = 360 - ball.dir;
+            }
+
+            if (ball.YPosition <= ball.Radius)            // hit bottom edge, go up
+            {
+                ball.dir = 180 - ball.dir;
+            }
+            if (ball.YPosition >= _windowHeight - ball.Radius)   // hit top edge, go down
+            {
+                ball.dir = 180 - ball.dir;
             }
         }
 
-        
-        override public List<BallAPI> GetAllBalls()
+        override public List<IBall2> GetAllBalls()
         {
-            return _ballStorage;
+            List<IBall2> list = new List<IBall2>(); 
+            foreach (IBall ball in _ballStorage)
+            {
+                list.Add(new Ball2(ball.XPosition, ball.YPosition));
+            }
+            return list;
         }
         
 
@@ -63,5 +93,7 @@
         {
             _ballStorage.Clear();
         }
+
+
     }
 }
