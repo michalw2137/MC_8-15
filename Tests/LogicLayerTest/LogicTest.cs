@@ -1,96 +1,64 @@
-//using Data;
-//using Logic;
-//using Microsoft.VisualStudio.TestTools.UnitTesting;
-//using System.Collections.Generic;
+using Logic;
+using Data;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System;
+using Moq;
 
-//namespace Tests.DataTest
-//{
-//    [TestClass]
-//    public class LogicTest
-//    {
-//        [TestMethod]
-//        public void SummonBallsTest()
-//        {
-//            ILogic api = ILogic.Create(100, 100);
+namespace Tests.LogicLayerTest
+{
+    [TestClass]
+    public class LogicTest
+    {
+        [TestMethod]
+        public void SummonBallsTest()
+        {
+            ILogic api = ILogic.Create(100, 100);
 
-//            api.SummonBalls(10);
-//            List<Il> balls = api.GetAllBalls();
-//            Assert.AreEqual(10, balls.Count);
-//        }
+            api.SummonBalls(10);
+            List<IBall2> balls = api.GetAllBalls();
+            Assert.AreEqual(10, balls.Count);
+        }
 
-//        [TestMethod]
-//        public void SummonBallsAwayFromEdgeTest()
-//        {
-//            ILogic api = ILogic.Create(100, 60);
+        [TestMethod]
+        public void ClearBallsTest()
+        {
+            ILogic api = ILogic.Create(100, 100);
 
-//            api.SummonBalls(1000);
+            api.SummonBalls(10);
+            api.ClearBalls();
+            List<IBall2> balls = api.GetAllBalls();
+            Assert.AreEqual(0, balls.Count);
+        }
 
-//            foreach (ILogic.BallAPI ball in api.GetAllBalls())
-//            {
-//                Assert.AreEqual(60/30, ball.Radius);
+        [TestMethod]
+        public void Ball2Test()
+        {
+            ILogic api = ILogic.Create(100, 100);
+            api.SummonBalls(1);
+            List<IBall2> balls = api.GetAllBalls();
+            balls[0].Radius = 69;
+            balls[0].XPosition = 2137;
+            balls[0].YPosition = 420;
 
-//                Assert.IsTrue(ball.XPosition >= ball.Radius);
-//                Assert.IsTrue(ball.XPosition <= 100 - ball.Radius) ;
+            Assert.AreEqual(balls[0].Radius, 69);
+            Assert.AreEqual(balls[0].XPosition, 2137);
+            Assert.AreEqual(balls[0].YPosition, 420);
+        }
 
-//                Assert.IsTrue(ball.YPosition >= ball.Radius);
-//                Assert.IsTrue(ball.YPosition <= 60 - ball.Radius);
-//            }
-//        }
+        [TestMethod]
+        public void BounceTest()
+        {
+            ILogic api = ILogic.Create(100, 100);
+            api.SummonBalls(1);
+            var mockBall = new Mock<IBall>();
+            List<IBall> balls = api.GetOldBalls();
+            balls[0].XPosition = 95;
+            int temp = balls[0].vx;
+            api.BounceIfOnEdge(balls[0]);
+            Assert.AreEqual(Math.Abs(temp) * (-1), balls[0].vx);
+        }
 
-//        [TestMethod]
-//        public void ClearBallsTest()
-//        {
-//            ILogic api = ILogic.Create(100, 100);
 
-//            api.SummonBalls(10);
-//            api.ClearBalls();
-//            List<ILogic.BallAPI> balls = api.GetAllBalls();
-//            Assert.AreEqual(0, balls.Count);
-//        }
-
-//        [TestMethod]
-//        public void BallsMoveTest()
-//        {
-//            ILogic api = ILogic.Create(100, 100);
-
-//            api.SummonBalls(100);
-//            List<ILogic.BallAPI> balls = api.GetAllBalls();
-
-//            int[] startingXs = new int[100];
-//            int[] startingYs = new int[100];
-//            for (int i=0; i < startingXs.Length; i++)
-//            {
-//                startingXs[i] = balls[i].XPosition;
-//                startingYs[i] = balls[i].YPosition;
-//            }
-//            api.TickBalls();
-//            for (int i = 0; i < startingXs.Length; i++)
-//            {
-//                Assert.IsTrue(startingXs[i] != balls[i].XPosition || startingYs[i] != balls[i].YPosition);
-//            }
-//        }
-
-//        [TestMethod]
-//        public void BallsDontLeaveWindowTest()
-//        {
-//            ILogic api = ILogic.Create(100, 50);
-
-//            api.SummonBalls(10);
-
-//            for (int i = 0; i < 1000; i++)
-//            {
-//                foreach (ILogic.BallAPI ball in api.GetAllBalls())
-//                {
-//                    Assert.IsTrue(ball.XPosition >= 0);
-//                    Assert.IsTrue(ball.XPosition <= 100);
-
-//                    Assert.IsTrue(ball.YPosition >= 0);
-//                    Assert.IsTrue(ball.YPosition <= 50);
-//                }
-//                api.TickBalls();
-//            }
-            
-//        }
-
-//    }
-//}
+    }
+}

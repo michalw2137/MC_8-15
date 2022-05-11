@@ -23,7 +23,11 @@ namespace Logic
 
         public abstract List<IBall2> GetAllBalls();
 
+        public abstract List<IBall> GetOldBalls();
+
         public abstract void ClearBalls();
+
+        public abstract void BounceIfOnEdge(IBall ball);
     }
 
     public abstract class IBall2

@@ -57,7 +57,7 @@ namespace Logic
             }
         }
 
-        private void BounceIfOnEdge(IBall ball)
+        public override void BounceIfOnEdge(IBall ball)
         {
             if (ball.XPosition <= ball.Radius)            // hit left edge, go right
             {
@@ -128,6 +128,15 @@ namespace Logic
             }
             return list;
         }
-       
+        override public List<IBall> GetOldBalls()
+        {
+            List<IBall> list = new();
+            foreach (IBall ball in _ballStorage)
+            {
+                list.Add(ball);
+            }
+            return list;
+        }
+
     }
 }
