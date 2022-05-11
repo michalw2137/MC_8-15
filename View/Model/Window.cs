@@ -16,7 +16,7 @@ namespace Presentation.Model
             _ballsManager = ILogic.Create(width, height);
         }
 
-        internal List<ILogic.IBall2> GetBalls()
+        internal List<IBall2> GetBalls()
         {
             return _ballsManager.GetAllBalls();
         }

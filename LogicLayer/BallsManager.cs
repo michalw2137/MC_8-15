@@ -4,20 +4,8 @@ namespace Logic
 {
     internal class BallsManager : ILogic
     {
-        internal  readonly int _windowWidth;
-        internal  readonly int _windowHeight;
         internal  readonly int _Radius = 15;
         internal  readonly List<IBall> _ballStorage = new();
-
-        public BallsManager(int windowWidth, int windowHeight)
-        {
-            System.Diagnostics.Debug.WriteLine("konstruktor");
-
-            _windowHeight = windowHeight;
-            _windowWidth = windowWidth;
-
-            //SummonBalls(4);
-        }
 
         public void assignThreads()
         {
@@ -25,15 +13,14 @@ namespace Logic
 
             foreach (IBall ball in _ballStorage)
             {
-
                 Thread t = new Thread(() =>
                 {
                     while (isMoving)
                     {
                         ball.move();
-                        lock(_lock)
+                        BounceIfOnEdge(ball);
+                        lock (_lock)
                         {
-                            BounceIfOnEdge(ball);
                             ResolveCollisionsWithBalls(ball);
                         }
                         //System.Diagnostics.Debug.WriteLine("Ball dir=" + ball.dir.ToString() + ", speed=" + ball.speed.ToString());
@@ -46,14 +33,11 @@ namespace Logic
 
         public override void SummonBalls(int amount)
         {
-
             createBalls(amount);
-
             assignThreads();
 
             if (!isMoving)
             {
-
                 isMoving = true;
                 foreach (Thread t in threads) 
                 {
@@ -62,20 +46,13 @@ namespace Logic
             }
         }
 
-        public override void ClearBalls()
-        {
-            isMoving = false;
-            threads.Clear();
-            _ballStorage.Clear();
-        }
-
         override public void createBalls(int amount)
         {
             Random rnd = new Random();
             for (int i = 0; i < amount; i++)
             {
-                int xPos = rnd.Next(_Radius, _windowWidth - _Radius);
-                int yPos = rnd.Next(_Radius, _windowHeight - _Radius);
+                int xPos = rnd.Next(_Radius, Box.width - _Radius);
+                int yPos = rnd.Next(_Radius, Box.height - _Radius);
                 _ballStorage.Add(IBall.getBall(xPos, yPos));
             }
         }
@@ -86,7 +63,7 @@ namespace Logic
             {
                 ball.vx = Math.Abs(ball.vx);
             }
-            if (ball.XPosition >= _windowWidth - ball.Radius)    // hit right edge, go left
+            if (ball.XPosition >= Box.width - ball.Radius)    // hit right edge, go left
             {
                 ball.vx = Math.Abs(ball.vx) * (-1);
             }
@@ -95,7 +72,7 @@ namespace Logic
             {
                 ball.vy = Math.Abs(ball.vy);
             }
-            if (ball.YPosition >= _windowHeight - ball.Radius)   // hit top edge, go down
+            if (ball.YPosition >= Box.height - ball.Radius)   // hit top edge, go down
             {
                 ball.vy = Math.Abs(ball.vy) * (-1);
             }
@@ -133,6 +110,13 @@ namespace Logic
                     return other;
             }
             return null;
+        }
+
+        public override void ClearBalls()
+        {
+            isMoving = false;
+            threads.Clear();
+            _ballStorage.Clear();
         }
 
         override public List<IBall2> GetAllBalls()

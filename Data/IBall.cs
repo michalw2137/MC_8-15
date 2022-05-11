@@ -9,7 +9,7 @@ namespace Data
             return new Ball(x, y);
         }
 
-        virtual public int XPosition { get; set; }
+        public int XPosition { get; set; }
         public int YPosition { get; set; }
         public int Radius { get; set; }
 
@@ -23,7 +23,12 @@ namespace Data
         public abstract void move();
 
         public abstract event PropertyChangedEventHandler? PropertyChanged;
+    }
 
-
+    public abstract class Box
+    {
+        public static int width { get; set; }
+        public static int height { get; set; }
+        
     }
 }

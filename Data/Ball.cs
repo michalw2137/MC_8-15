@@ -18,17 +18,10 @@ namespace Data
                 vx = rnd.Next(-3, 3);
                 vy = rnd.Next(-3, 3);
             } while (vx == 0 || vy == 0);
-
-            //dir = rnd.Next(0, 360);
-
         }
-
 
         override public void move()  
         {
-            //double angle = Math.PI * (dir) / 180.0;
-            //double vx = Math.Sin(angle) * speed;
-            //double vy = Math.Cos(angle) * speed;
 
             XPosition += vx;
             YPosition += vy;
@@ -43,31 +36,6 @@ namespace Data
 
         public override event PropertyChangedEventHandler PropertyChanged;
 
-        //private void BounceIfOnEdge(int width, int height)
-        //{
-        //    if (XPosition <= Radius)            // hit left edge, go right
-        //    {
-        //        //XVelocity = Math.Abs(XVelocity);
-        //        dir = 360 - dir;
-        //    }
-        //    if (XPosition >= width - Radius)    // hit right edge, go left
-        //    {
-        //        //XVelocity = Math.Abs(XVelocity) * (-1);
-        //        dir = 360 - dir; 
-        //    }
-
-        //    if (YPosition <= Radius)            // hit bottom edge, go up
-        //    {
-        //        //YVelocity = Math.Abs(YVelocity);
-        //        dir = 180 - dir;
-        //    }
-        //    if (YPosition >= height - Radius)   // hit top edge, go down
-        //    {
-        //        //YVelocity = Math.Abs(YVelocity) * (-1);
-        //        dir = 180 - dir;
-
-        //    }
-        //}
 
     }
 }

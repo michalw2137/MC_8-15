@@ -10,31 +10,30 @@ namespace Logic
 
         public List<Thread> threads;
 
-        public static ILogic Create(int windowWidth, int windowHeight)
+        public static ILogic Create(int width, int height)
         {
-            return new BallsManager(windowWidth, windowHeight);
+            Box.width = width;
+            Box.height = height;    
+            return new BallsManager();
         }
 
+        public abstract void SummonBalls(int amount);
 
         public abstract void createBalls(int amount);
 
         public abstract List<IBall2> GetAllBalls();
 
         public abstract void ClearBalls();
+    }
 
-        public abstract void SummonBalls(int amount);
-
-
-
-        public abstract class IBall2 
+    public abstract class IBall2
+    {
+        public static IBall2 Create(int x, int y)
         {
-            public static IBall2 Create(int x, int y)
-            {
-                return new Ball2(x, y);
-            }
-            virtual public int XPosition { get; set; }
-            public int YPosition { get; set; }
-            public int Radius { get; set; }
+            return new Ball2(x, y);
         }
+        virtual public int XPosition { get; set; }
+        public int YPosition { get; set; }
+        public int Radius { get; set; }
     }
 }

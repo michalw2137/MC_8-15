@@ -95,7 +95,7 @@ namespace Presentation.ViewModel
             }
         }
 
-        public ILogic.IBall2[]? GetBalls { get => _Window.GetBalls().ToArray(); }
+        public IBall2[]? GetBalls { get => _Window.GetBalls().ToArray(); }
 
         public void Summon()
         {
