@@ -51,7 +51,6 @@ namespace Tests.LogicLayerTest
         {
             ILogic api = ILogic.Create(100, 100);
             api.SummonBalls(1);
-            var mockBall = new Mock<IBall>();
             List<IBall> balls = api.GetOldBalls();
             balls[0].XPosition = 95;
             int temp = balls[0].vx;
