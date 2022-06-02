@@ -1,15 +1,16 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 
 namespace Data
 {
     internal class Ball : IBall, INotifyPropertyChanged
     {
-        internal Ball(int xPosition, int yPosition)
+        internal Ball(int xPosition, int yPosition, int ID)
         {
             XPosition = xPosition;
             YPosition = yPosition;
-
+            id = ID;
             Radius = 15;
             mass = 10;
             Random rnd = new Random();
@@ -34,8 +35,13 @@ namespace Data
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue(nameof(XPosition), XPosition);
+        }
+
         public override event PropertyChangedEventHandler PropertyChanged;
 
-
+        
     }
 }

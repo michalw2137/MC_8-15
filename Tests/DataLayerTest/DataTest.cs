@@ -2,6 +2,8 @@
 using Data;
 using Logic;
 using System.Collections.Generic;
+using System.IO;
+using System;
 
 namespace Tests.DataLayerTest
 {
@@ -59,6 +61,27 @@ namespace Tests.DataLayerTest
             ILogic api = ILogic.Create(150, 100);
             Assert.AreEqual((int)Box.width, 150);
             Assert.AreEqual((int)Box.height, 100);
+        }
+
+        [TestMethod]
+        public void LogFileCreateTest()
+        {
+            IBall ball = IBall.getBall(50, 50, 0);
+
+            Logger log = new Logger(ball);
+            Console.WriteLine(Path.GetTempPath() + "ballsLogs\\ball0.json");
+            Assert.IsFalse(File.Exists(Path.GetTempPath() + "ballsLogs\\ball0.json"));
+        }
+        [TestMethod]
+        public void LoggingTest()
+        {
+            IBall ball = IBall.getBall(1111, 22222, 1);
+            ball.vx = 420;
+            ball.vy = 2137;
+            Logger log = new Logger(ball);
+            log.log();
+            string input = File.ReadAllText(Path.GetTempPath() + "ballsLogs\\ball1.json");
+            Assert.AreEqual(input, "{\"id\":1,\"XPosition\":1111,\"YPosition\":22222,\"Radius\":15,\"vx\":420,\"vy\":2137,\"mass\":10.0}");
         }
     }
 }

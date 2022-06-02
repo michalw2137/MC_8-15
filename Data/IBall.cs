@@ -1,14 +1,15 @@
 ﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace Data
 {
-    public abstract class IBall 
+    public abstract class IBall : ISerializable
     {
-        public static IBall getBall(int x, int y)
+        public static IBall getBall(int x, int y, int id)
         {
-            return new Ball(x, y);
+            return new Ball(x, y, id);
         }
-
+        public int id { get; set; }
         public int XPosition { get; set; }
         public int YPosition { get; set; }
         public int Radius { get; set; }
@@ -19,6 +20,7 @@ namespace Data
         public double mass { get; set; }
 
         public abstract void move();
+        public abstract void GetObjectData(SerializationInfo info, StreamingContext context);
 
         public abstract event PropertyChangedEventHandler? PropertyChanged;
     }

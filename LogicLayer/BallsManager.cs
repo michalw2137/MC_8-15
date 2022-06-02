@@ -53,7 +53,7 @@ namespace Logic
             {
                 int xPos = rnd.Next(_Radius, Box.width - _Radius);
                 int yPos = rnd.Next(_Radius, Box.height - _Radius);
-                _ballStorage.Add(IBall.getBall(xPos, yPos));
+                _ballStorage.Add(IBall.getBall(xPos, yPos, i));
             }
         }
 

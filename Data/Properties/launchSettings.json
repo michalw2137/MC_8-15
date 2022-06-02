@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Data": {
+      "commandName": "Project",
+      "hotReloadEnabled": false,
+      "remoteDebugEnabled": false
+    }
+  }
+}
