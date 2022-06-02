@@ -11,20 +11,27 @@ namespace Logic
         public void assignThreads()
         {
             threads = new List<Thread>();
-
+            
             foreach (IBall ball in _ballStorage)
             {
                 Thread t = new Thread(() =>
                 {
+                    bool flagEdge = false;
+                    bool flagCollision = false;
                     while (isMoving)
                     {
                         ball.move();
-                        BounceIfOnEdge(ball);
+                        flagEdge = BounceIfOnEdge(ball);
                         lock (_lock)
                         {
-                            ResolveCollisionsWithBalls(ball);
+                            flagCollision = ResolveCollisionsWithBalls(ball);
                         }
-                        _loggerStorage[ball.id].log();
+                        if (flagEdge || flagCollision)
+                        {
+                            _loggerStorage[ball.id].log();
+                            flagEdge = false;
+                            flagCollision = false;
+                        }
                         //System.Diagnostics.Debug.WriteLine("Ball dir=" + ball.dir.ToString() + ", speed=" + ball.speed.ToString());
                         Thread.Sleep(5);
                     }
@@ -63,45 +70,55 @@ namespace Logic
             }
         }
 
-        public override void BounceIfOnEdge(IBall ball)
+        public override bool BounceIfOnEdge(IBall ball)
         {
+            bool flag = false;
             if (ball.XPosition <= ball.Radius)            // hit left edge, go right
             {
                 ball.vx = Math.Abs(ball.vx);
+                flag = true;
             }
             if (ball.XPosition >= Box.width - ball.Radius)    // hit right edge, go left
             {
                 ball.vx = Math.Abs(ball.vx) * (-1);
+                flag = true;
             }
 
             if (ball.YPosition <= ball.Radius)            // hit bottom edge, go up
             {
                 ball.vy = Math.Abs(ball.vy);
+                flag = true;
             }
             if (ball.YPosition >= Box.height - ball.Radius)   // hit top edge, go down
             {
                 ball.vy = Math.Abs(ball.vy) * (-1);
+                flag = true;
             }
+
+            return flag;
         }
 
-        private void ResolveCollisionsWithBalls(IBall ball)
+        private bool ResolveCollisionsWithBalls(IBall ball)
         {
             IBall? collided = FindCollidingBall(ball);
-            if (collided != null)
+            if(collided == null)
             {
-                double newX1, newX2, newY1, newY2;
-
-                newX1 = (ball.vx * (ball.mass - collided.mass) / (ball.mass + collided.mass) + (2 * collided.mass * collided.vx) / (ball.mass + collided.mass));
-                newY1 = (ball.vy * (ball.mass - collided.mass) / (ball.mass + collided.mass) + (2 * collided.mass * collided.vy) / (ball.mass + collided.mass));
-
-                newX2 = (collided.vx * (collided.mass - ball.mass) / (ball.mass + collided.mass) + (2 * ball.mass * ball.vx) / (ball.mass + collided.mass));
-                newY2 = (collided.vy * (collided.mass - ball.mass) / (ball.mass + collided.mass) + (2 * ball.mass * ball.vy) / (ball.mass + collided.mass));
-
-                ball.vx = (int)newX1;
-                ball.vy = (int)newY1;
-                collided.vx = (int)newX2;
-                collided.vy = (int)newY2;
+                return false;
             }
+            double newX1, newX2, newY1, newY2;
+
+            newX1 = (ball.vx * (ball.mass - collided.mass) / (ball.mass + collided.mass) + (2 * collided.mass * collided.vx) / (ball.mass + collided.mass));
+            newY1 = (ball.vy * (ball.mass - collided.mass) / (ball.mass + collided.mass) + (2 * collided.mass * collided.vy) / (ball.mass + collided.mass));
+
+            newX2 = (collided.vx * (collided.mass - ball.mass) / (ball.mass + collided.mass) + (2 * ball.mass * ball.vx) / (ball.mass + collided.mass));
+            newY2 = (collided.vy * (collided.mass - ball.mass) / (ball.mass + collided.mass) + (2 * ball.mass * ball.vy) / (ball.mass + collided.mass));
+
+            ball.vx = (int)newX1;
+            ball.vy = (int)newY1;
+            collided.vx = (int)newX2;
+            collided.vy = (int)newY2;
+
+            return true;
         }
 
         private IBall? FindCollidingBall(IBall ball)

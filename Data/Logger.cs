@@ -7,13 +7,14 @@ namespace Data
     {
         private string filePath;
         private IBall ball;
+        private readonly JArray fileDataArray = new JArray();
 
         public Logger(IBall _ball)
 
         {
             ball = _ball;
             string tempPath = Path.GetTempPath();
-            filePath = tempPath + "ballsLogs\\ball" + ball.id + ".json";
+            filePath = tempPath + "ballsLogs\\ball" + ball.id + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".json";
             if (File.Exists(filePath))
             {
                 try
@@ -27,10 +28,12 @@ namespace Data
             //File.Create(filePath);
         }
 
-        public void log()
+        public async void log()
         {
-            string output = JsonConvert.SerializeObject(ball);
-            File.AppendAllText(filePath, output + "\n");
+
+            fileDataArray.Add(JObject.FromObject(ball));
+            string output = JsonConvert.SerializeObject(fileDataArray, Formatting.Indented);
+            File.WriteAllText(filePath, output);
         }
     }
 }

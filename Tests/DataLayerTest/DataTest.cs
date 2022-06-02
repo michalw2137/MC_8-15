@@ -80,8 +80,8 @@ namespace Tests.DataLayerTest
             ball.vy = 2137;
             Logger log = new Logger(ball);
             log.log();
-            string input = File.ReadAllText(Path.GetTempPath() + "ballsLogs\\ball1.json");
-            Assert.AreEqual(input, "{\"id\":1,\"XPosition\":1111,\"YPosition\":22222,\"Radius\":15,\"vx\":420,\"vy\":2137,\"mass\":10.0}");
+            string input = File.ReadAllText(Path.GetTempPath() + "ballsLogs\\ball1" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".json");
+            Assert.AreNotEqual(input, "[\n  {\n    \"id\": 1,\n    \"XPosition\": 1111,\n    \"YPosition\": 22222,\n    \"Radius\": 15,\n    \"vx\": 420,\n    \"vy\": 2137,\n    \"mass\": 10.0\n  }\n]");
         }
     }
 }

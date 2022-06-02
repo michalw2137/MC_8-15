@@ -29,7 +29,7 @@ namespace Logic
 
         public abstract void ClearBalls();
 
-        public abstract void BounceIfOnEdge(IBall ball);
+        public abstract bool BounceIfOnEdge(IBall ball);
     }
 
     public abstract class IBall2
