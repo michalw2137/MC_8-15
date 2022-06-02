@@ -10,6 +10,8 @@ namespace Logic
 
         public List<Thread> threads;
 
+        public List<Thread> loggers;
+
         public static ILogic Create(int width, int height)
         {
             Box.width = width;

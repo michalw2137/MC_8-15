@@ -6,6 +6,7 @@ namespace Logic
     {
         internal  readonly int _Radius = 15;
         internal  readonly List<IBall> _ballStorage = new();
+        internal readonly List<Logger> _loggerStorage = new();
 
         public void assignThreads()
         {
@@ -23,6 +24,7 @@ namespace Logic
                         {
                             ResolveCollisionsWithBalls(ball);
                         }
+                        _loggerStorage[ball.id].log();
                         //System.Diagnostics.Debug.WriteLine("Ball dir=" + ball.dir.ToString() + ", speed=" + ball.speed.ToString());
                         Thread.Sleep(5);
                     }
@@ -30,6 +32,8 @@ namespace Logic
                 threads.Add(t);
             }
         }
+
+       
 
         public override void SummonBalls(int amount)
         {
@@ -53,7 +57,9 @@ namespace Logic
             {
                 int xPos = rnd.Next(_Radius, Box.width - _Radius);
                 int yPos = rnd.Next(_Radius, Box.height - _Radius);
-                _ballStorage.Add(IBall.getBall(xPos, yPos, i));
+                IBall ball = IBall.getBall(xPos, yPos, i);
+                _ballStorage.Add(ball);
+                _loggerStorage.Add(new Logger(ball));
             }
         }
 

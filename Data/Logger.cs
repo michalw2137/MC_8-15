@@ -30,7 +30,7 @@ namespace Data
         public void log()
         {
             string output = JsonConvert.SerializeObject(ball);
-            File.AppendAllText(filePath, output);
+            File.AppendAllText(filePath, output + "\n");
         }
     }
 }
