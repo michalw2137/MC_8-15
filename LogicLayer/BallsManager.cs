@@ -1,4 +1,5 @@
 ﻿using Data;
+using System.Diagnostics;
 
 namespace Logic
 {
@@ -24,7 +25,8 @@ namespace Logic
                         {
                             ResolveCollisionsWithBalls(ball);
                         }
-                        _loggerStorage[ball.id].log();
+                        
+                        
                         Thread.Sleep(5);
                     }
                 });
@@ -32,7 +34,30 @@ namespace Logic
             }
         }
 
-       
+        public void startLogging()
+        {
+            Stopwatch sw = new Stopwatch();
+            double ticks = sw.ElapsedTicks;
+            double milliseconds = (ticks / Stopwatch.Frequency) * 1000;
+            Thread t = new Thread(() =>
+            {
+                while (isMoving)
+                {
+                    ticks = sw.ElapsedTicks;
+                    milliseconds = (ticks / Stopwatch.Frequency) * 1000;
+                    if (milliseconds % 10 == 0)
+                    {
+
+                        foreach (Logger logger in _loggerStorage)
+                        {
+                            logger.log();
+                        }
+                    }
+                }
+            });
+            t.Start();
+                
+        }
 
         public override void SummonBalls(int amount)
         {
@@ -46,6 +71,7 @@ namespace Logic
                 {
                     t.Start(); 
                 }
+                startLogging();
             }
         }
 
