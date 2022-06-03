@@ -25,7 +25,6 @@ namespace Logic
                             ResolveCollisionsWithBalls(ball);
                         }
                         _loggerStorage[ball.id].log();
-                        //System.Diagnostics.Debug.WriteLine("Ball dir=" + ball.dir.ToString() + ", speed=" + ball.speed.ToString());
                         Thread.Sleep(5);
                     }
                 });
@@ -63,40 +62,34 @@ namespace Logic
             }
         }
 
-        public override bool BounceIfOnEdge(IBall ball)
+        public override void BounceIfOnEdge(IBall ball)
         {
-            bool flag = false;
             if (ball.XPosition <= ball.Radius)            // hit left edge, go right
             {
                 ball.vx = Math.Abs(ball.vx);
-                flag = true;
             }
             if (ball.XPosition >= Box.width - ball.Radius)    // hit right edge, go left
             {
                 ball.vx = Math.Abs(ball.vx) * (-1);
-                flag = true;
             }
 
             if (ball.YPosition <= ball.Radius)            // hit bottom edge, go up
             {
                 ball.vy = Math.Abs(ball.vy);
-                flag = true;
             }
             if (ball.YPosition >= Box.height - ball.Radius)   // hit top edge, go down
             {
                 ball.vy = Math.Abs(ball.vy) * (-1);
-                flag = true;
             }
 
-            return flag;
         }
 
-        private bool ResolveCollisionsWithBalls(IBall ball)
+        private void ResolveCollisionsWithBalls(IBall ball)
         {
             IBall? collided = FindCollidingBall(ball);
             if(collided == null)
             {
-                return false;
+                return;
             }
             double newX1, newX2, newY1, newY2;
 
@@ -110,8 +103,6 @@ namespace Logic
             ball.vy = (int)newY1;
             collided.vx = (int)newX2;
             collided.vy = (int)newY2;
-
-            return true;
         }
 
         private IBall? FindCollidingBall(IBall ball)
