@@ -16,22 +16,15 @@ namespace Logic
             {
                 Thread t = new Thread(() =>
                 {
-                    bool flagEdge = false;
-                    bool flagCollision = false;
                     while (isMoving)
                     {
                         ball.move();
-                        flagEdge = BounceIfOnEdge(ball);
+                        BounceIfOnEdge(ball);
                         lock (_lock)
                         {
-                            flagCollision = ResolveCollisionsWithBalls(ball);
+                            ResolveCollisionsWithBalls(ball);
                         }
-                        if (flagEdge || flagCollision)
-                        {
-                            _loggerStorage[ball.id].log();
-                            flagEdge = false;
-                            flagCollision = false;
-                        }
+                        _loggerStorage[ball.id].log();
                         //System.Diagnostics.Debug.WriteLine("Ball dir=" + ball.dir.ToString() + ", speed=" + ball.speed.ToString());
                         Thread.Sleep(5);
                     }
