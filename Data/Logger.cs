@@ -14,7 +14,7 @@ namespace Data
         {
             ball = _ball;
             string tempPath = Path.GetTempPath();
-            filePath = tempPath + "ballsLogs\\ball" + ball.id + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".json";
+            filePath = tempPath + "ballsLogs\\ball" + ball.id + ".json";
             if (File.Exists(filePath))
             {
                 try
@@ -31,9 +31,9 @@ namespace Data
         public async void log()
         {
 
-            fileDataArray.Add(JObject.FromObject(ball));
-            string output = JsonConvert.SerializeObject(fileDataArray, Formatting.Indented);
-            File.WriteAllText(filePath, output);
+            //fileDataArray.Add(JObject.FromObject(ball));
+            string output = JsonConvert.SerializeObject(ball);
+            File.AppendAllText(filePath, DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss-fff") + " " + output + "\n");
         }
     }
 }
